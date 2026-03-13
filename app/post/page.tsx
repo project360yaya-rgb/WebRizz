@@ -105,14 +105,14 @@ export default function PostPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white pb-24 font-sans text-slate-900">
-      
+    <div className="min-h-screen bg-white pb-24 font-sans text-slate-900 sm:ml-64 sm:pb-8">
+
       {/* Header */}
       <div className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur-xl">
-        <h1 className="text-center text-lg font-bold text-zinc-900">New Reel</h1>
+        <h1 className="text-center text-lg font-bold text-zinc-900 sm:text-left sm:text-xl">New Reel</h1>
       </div>
 
-      <div className="mx-auto max-w-lg p-4 sm:p-6">
+      <div className="mx-auto max-w-lg p-4 sm:p-8">
         
         {error && (
           <div className="mb-6 flex animate-in fade-in items-center gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">

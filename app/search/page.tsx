@@ -24,6 +24,7 @@ interface Reel {
   } | null
   likes_count: number
   is_liked: boolean
+  comments_count: number
 }
 
 export default function SearchPage() {
@@ -142,12 +143,22 @@ export default function SearchPage() {
         countMap[l.reel_id] = (countMap[l.reel_id] || 0) + 1
       })
 
+      // Fetch comment counts
+      const { data: allComments } = reelIds.length > 0
+        ? await supabase.from('comments').select('reel_id').in('reel_id', reelIds)
+        : { data: [] }
+      const commentsMap: Record<string, number> = {}
+      allComments?.forEach((c) => {
+        commentsMap[c.reel_id] = (commentsMap[c.reel_id] || 0) + 1
+      })
+
       // 4. Format results precisely as ReelViewer expects
       const formattedResults = reelsData.map((r) => ({
         ...r,
         profiles: Array.isArray(r.profiles) ? r.profiles[0] : r.profiles,
         likes_count: countMap[r.id] || 0,
         is_liked: likedSet.has(r.id),
+        comments_count: commentsMap[r.id] || 0,
       }))
 
       setResults(formattedResults)
